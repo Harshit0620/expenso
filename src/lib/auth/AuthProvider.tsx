@@ -13,7 +13,9 @@ import type { AuthContextValue } from './authContext'
  */
 export function AuthProvider({ children }: { children: ReactNode }) {
   const [session, setSession] = useState<Session | null>(null)
-  const [loading, setLoading] = useState(true)
+  // When Supabase is not configured we can never resolve a session, so start
+  // in the "resolved" state instead of hanging on "Loading…" forever.
+  const [loading, setLoading] = useState(isSupabaseConfigured)
 
   useEffect(() => {
     if (!isSupabaseConfigured) return
@@ -24,10 +26,17 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       setLoading(false)
     })
 
-    void supabase.auth.getSession().then(({ data }) => {
-      setSession(data.session)
-      setLoading(false)
-    })
+    void supabase.auth
+      .getSession()
+      .then(({ data }) => {
+        setSession(data.session)
+      })
+      .catch(() => {
+        setSession(null)
+      })
+      .finally(() => {
+        setLoading(false)
+      })
 
     return () => {
       sub.subscription.unsubscribe()
