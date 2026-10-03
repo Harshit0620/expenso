@@ -1,0 +1,10 @@
+# Expenso — Supabase configuration
+#
+# `sms-webhook` authenticates via the `x-device-token` header (device-token
+# based), NOT via Supabase Auth JWT. JWT verification must therefore be
+# disabled for it. All other functions still require a valid JWT by default.
+
+project_id = "dropcode"
+
+[functions.sms-webhook]
+verify_jwt = false

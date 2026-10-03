@@ -1,0 +1,42 @@
+@import 'tailwindcss';
+
+:root {
+  color-scheme: light;
+}
+
+html,
+body,
+#root {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  font-family:
+    system-ui, 'Segoe UI', Roboto, -apple-system, BlinkMacSystemFont, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Expenso design tokens (Stitch visual language). */
+@theme {
+  --color-brand: #4f46e5;
+  --color-brand-dark: #4338ca;
+  --color-brand-soft: #eef2ff;
+  --color-ink: #0f172a;
+  --color-muted: #64748b;
+}
+
+/* Thin, unobtrusive scrollbars for the app shell. */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+  border-radius: 9999px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
